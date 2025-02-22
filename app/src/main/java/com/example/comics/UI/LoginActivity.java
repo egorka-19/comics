@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
-import com.rey.material.widget.ImageView;
 
 import io.paperdb.Paper;
 
@@ -42,14 +41,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         swipeButton = (ImageButton)findViewById(R.id.swipe_btn);
-        loginButton = (ImageButton)findViewById(R.id.login_button);
+        loginButton = (ImageButton)findViewById(R.id.register_button);
 
 
-        loginButton = (ImageButton)findViewById(R.id.login_button);
-        loginPasswordInput = (EditText) findViewById(R.id.login_password_input);
-        loginPhoneInput = (EditText) findViewById(R.id.login_phone_input);
+        loginButton = (ImageButton)findViewById(R.id.register_button);
+        loginPasswordInput = (EditText) findViewById(R.id.register_password_input);
+        loginPhoneInput = (EditText) findViewById(R.id.register_phone_input);
         loadingBar = new ProgressDialog(this);
-        checkBoxRememberMe = (CheckBox) findViewById(R.id.login_checkbox);
+        checkBoxRememberMe = (CheckBox) findViewById(R.id.register_checkbox);
         Paper.init(this);
         swipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
