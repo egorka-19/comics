@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
+import com.rey.material.widget.ImageView;
 
 import io.paperdb.Paper;
 
@@ -48,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         loginPasswordInput = (EditText) findViewById(R.id.login_password_input);
         loginPhoneInput = (EditText) findViewById(R.id.login_phone_input);
         loadingBar = new ProgressDialog(this);
-        AdminLink = (TextView) findViewById(R.id.admin_panel_link);
-        NotAdminLink = (TextView) findViewById(R.id.not_admin_panel_link);
         checkBoxRememberMe = (CheckBox) findViewById(R.id.login_checkbox);
         Paper.init(this);
         swipeButton.setOnClickListener(new View.OnClickListener() {
@@ -67,28 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
-        AdminLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AdminLink.setVisibility(View.INVISIBLE);
-                NotAdminLink.setVisibility(View.VISIBLE);
-                Toast.makeText(LoginActivity.this, "Вы вошли как администратор", Toast.LENGTH_SHORT).show();
-//                loginButton.setText("Вход для админа");
-                parentDbName = "Admins";
-                checkBoxRememberMe.setVisibility(View.INVISIBLE);
-            }
-        });
-        NotAdminLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AdminLink.setVisibility(View.VISIBLE);
-                NotAdminLink.setVisibility(View.INVISIBLE);
-                Toast.makeText(LoginActivity.this, "Вы вошли как пользователь", Toast.LENGTH_SHORT).show();
-//                loginButton.setText("Войти");
-                parentDbName = "Users";
-                checkBoxRememberMe.setVisibility(View.VISIBLE);
-            }
-        });
+
     }
 
     private void loginUser() {

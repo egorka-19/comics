@@ -46,20 +46,20 @@ public class MainActivity extends AppCompatActivity {
         }, 1 * 1000); // Когда будем делать анимацию, если вообще будем, то надо учесть то, что по времени должно быть в идеале 1 секунда, иначе когда
         // делаешь больше, то ломается чекбокс запомни меня
 
-        String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
-        String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
-
-        if (UserPhoneKey != "" && UserPasswordKey != ""){
-            if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)){
-                ValidateUser(UserPhoneKey, UserPasswordKey);
-                loadingBar.setTitle("Вход в приложение");
-                loadingBar.setMessage("Пожалуйста, подождите...");
-                loadingBar.setCanceledOnTouchOutside(false);
-                loadingBar.show();
-            }
-        }
-
-    }
+//        String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
+//        String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
+//
+//       if (UserPhoneKey != "" && UserPasswordKey != ""){
+//            if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)){
+//                ValidateUser(UserPhoneKey, UserPasswordKey);
+//                loadingBar.setTitle("Вход в приложение");
+//                loadingBar.setMessage("Пожалуйста, подождите...");
+//                loadingBar.setCanceledOnTouchOutside(false);
+//                loadingBar.show();
+//            }
+//        }
+//
+   }
 
     private void ValidateUser(String phone, String password) {
         final DatabaseReference RootRef;
