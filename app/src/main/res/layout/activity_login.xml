@@ -83,7 +83,6 @@
         android:layout_below="@id/register_password_input"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
         android:contentDescription="@string/app_name"
         android:orientation="horizontal">
 
@@ -92,12 +91,12 @@
             style="@style/Material.Drawable.CheckBox"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="15dp"
             android:layout_weight="2"
             android:contentDescription="@string/app_name"
             android:fontFamily="@font/inter_medium"
             android:gravity="center_vertical"
-            android:layoutDirection="ltr"
+            android:layoutDirection="rtl"
             android:singleLine="true"
             android:text="Запомнить меня"
             android:textAllCaps="false"

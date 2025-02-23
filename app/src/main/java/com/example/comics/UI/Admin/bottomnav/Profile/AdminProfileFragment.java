@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comics.UI.Users.favourite;
-import com.example.comics.UI.Users.settings;
 import com.example.comics.databinding.FragmentProfileAdminBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

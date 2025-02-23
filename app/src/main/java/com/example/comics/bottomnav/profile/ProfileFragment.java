@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.comics.R;
-import com.example.comics.UI.Users.favourite;
-import com.example.comics.UI.Users.settings;
+import com.example.comics.UI.LoginActivity;
+import com.example.comics.UI.Users.HomeActivity;
 import com.example.comics.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +39,7 @@ import java.io.IOException;
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private Uri filePath;
+
     public String phone;
 
     //private List<publish> PublishList = new ArrayList<>();
@@ -52,6 +53,7 @@ public class ProfileFragment extends Fragment {
 
         phone = requireActivity().getIntent().getStringExtra("phone");
 
+
         loadUserInfo();
 
         binding.profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -61,18 +63,19 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Дождитесь загрузки фото, не выходите из приложения!", Toast.LENGTH_SHORT).show();
             }
         });
-
-        binding.buttonLike.setOnClickListener(new View.OnClickListener() {
+        binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileFragment.this.getActivity(), favourite.class));
+                Intent intent = new Intent(ProfileFragment.this.getActivity(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 
-        binding.setting.setOnClickListener(new View.OnClickListener() {
+        binding.back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileFragment.this.getActivity(), settings.class));
+                Intent intent = new Intent(ProfileFragment.this.getActivity(), HomeActivity.class);
+                startActivity(intent);
             }
         });
 
