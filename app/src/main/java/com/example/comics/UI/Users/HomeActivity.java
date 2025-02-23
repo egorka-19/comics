@@ -44,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         fragmentMap.put(R.id.profile, new ProfileFragment());
         fragmentMap.put(R.id.main, new MainFragment());
         fragmentMap.put(R.id.chats, new ChatsFragment());
-        fragmentMap.put(R.id.like, new LikeFragment());
         binding.bottomNav.setOnItemSelectedListener(item -> {
             Fragment fragment = fragmentMap.get(item.getItemId());
 

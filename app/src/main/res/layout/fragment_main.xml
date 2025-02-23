@@ -26,29 +26,29 @@
         android:orientation="vertical">
 
 
-        <TextView
+        <ImageView
             android:id="@+id/welcome_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="Добро пожаловать!"
-            android:textSize="22sp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/welcome1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar_iv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/account_icon"
             app:layout_constraintBottom_toTopOf="@+id/serach_box"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/welcome_text"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.75" />
 
         <ImageView
             android:id="@+id/search_iv"
@@ -114,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_iv" />
     </androidx.constraintlayout.widget.ConstraintLayout>

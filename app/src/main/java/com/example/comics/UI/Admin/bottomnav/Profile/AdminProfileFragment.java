@@ -47,12 +47,7 @@ public class AdminProfileFragment extends Fragment {
             }
         });
 
-        binding.setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdminProfileFragment.this.getActivity(), settings.class));
-            }
-        });
+        
 
         return binding.getRoot();
     }

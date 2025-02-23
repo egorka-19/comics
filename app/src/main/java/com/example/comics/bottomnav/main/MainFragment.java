@@ -121,7 +121,6 @@ public class MainFragment extends Fragment {
                             }
                         } else {
                             System.out.println("Error" + task.getException());
-                            binding.welcomeText.setText("E " + task.getException());
 
                             Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_LONG).show();
                         }
@@ -146,7 +145,6 @@ public class MainFragment extends Fragment {
                             }
                         } else {
                             System.out.println("Error" + task.getException());
-                            binding.welcomeText.setText("E " + task.getException());
 
                             Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_LONG).show();
                         }
