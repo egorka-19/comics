@@ -39,7 +39,7 @@
         app:layout_constraintStart_toEndOf="@id/btn_back"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_comic"
         android:layout_width="350dp"
         android:layout_height="0dp"
@@ -47,11 +47,13 @@
         android:layout_marginTop="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/image_comics"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
 
     <LinearLayout
         android:id="@+id/menu_block"
@@ -69,13 +71,14 @@
         app:layout_constraintVertical_bias="0.313">
 
         <LinearLayout
+            android:id="@+id/menu_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingVertical="10dp"
-            android:paddingEnd="5dp">
+            android:paddingEnd="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,6 +96,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/menu_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -117,6 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/menu_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -141,6 +146,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/menu_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

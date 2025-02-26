@@ -15,6 +15,7 @@ import com.example.comics.Model.PopularModel;
 import com.example.comics.Model.ViewAllModel;
 import com.example.comics.UI.Users.HomeActivity;
 import com.example.comics.UI.Users.add_response;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class product_card extends AppCompatActivity {
     ImageView detailedImg;
@@ -59,7 +60,17 @@ public class product_card extends AppCompatActivity {
             Glide.with(getApplicationContext()).load(popularModel.getImg_url()).into(detailedImg);
             name.setText(popularModel.getName());
         }
-
+        ShapeableImageView imageView = findViewById(R.id.iv_comic);
+        imageView.setShapeAppearanceModel(
+                imageView.getShapeAppearanceModel()
+                        .toBuilder()
+                        .setAllCornerSizes(240f) // Размер скругления в пикселях
+                        .build()
+        );
+        findViewById(R.id.menu_edit).setOnClickListener(v -> {
+            Intent intent = new Intent(product_card.this, EditActivity.class);
+            startActivity(intent);
+        });
 
     }
 }
