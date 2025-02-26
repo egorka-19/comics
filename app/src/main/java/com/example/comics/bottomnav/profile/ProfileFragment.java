@@ -71,13 +71,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        binding.back2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileFragment.this.getActivity(), HomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return binding.getRoot();
     }
