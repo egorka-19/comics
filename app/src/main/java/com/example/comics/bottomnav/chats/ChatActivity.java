@@ -75,7 +75,7 @@ public class ChatActivity extends AppCompatActivity {
     public static String chatGPT(String prompt) {
         String url = "https://api.naga.ac/v1/chat/completions";
         String apiKey = "ng-AUBPLAbnJiRBzvplwVzA8OiKgwGw8";
-        String model = "gemini-pro";
+        String model = "gpt-3.5-turbo";
 
         try {
             URL obj = new URL(url);
