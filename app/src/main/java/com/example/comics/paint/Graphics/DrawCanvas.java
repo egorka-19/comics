@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.example.comics.paint.File.SVG;
-import com.example.comics.paint.MainActivity;
+import com.example.comics.paint.PaintActivity;
 import com.example.comics.paint.Tools.EraserTool;
 import com.example.comics.paint.Tools.PaintTool;
 import com.example.comics.paint.Tools.PanTool;
@@ -336,7 +336,7 @@ public final class DrawCanvas extends View {
         super.onDraw(canvas);
 
         float screenDensity = getResources().getDisplayMetrics().density;
-        ((MainActivity) getContext()).updateInfoBar();
+        ((PaintActivity) getContext()).updateInfoBar();
 
         canvas.save();
         if (!drawMinimal) {

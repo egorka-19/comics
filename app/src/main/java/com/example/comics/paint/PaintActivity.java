@@ -47,10 +47,9 @@ import java.io.OutputStream;
 import java.util.Objects;
 
 import com.example.comics.paint.Graphics.DrawCanvas;
-import com.example.comics.databinding.ActivityMainBinding;
 
 
-public class MainActivity extends AppCompatActivity {
+public class PaintActivity extends AppCompatActivity {
 
     private final SettingsBottomSheet settingsBottomSheet = new SettingsBottomSheet();
     private final ToolsBottomSheet toolsBottomSheet = new ToolsBottomSheet();
@@ -336,9 +335,9 @@ public class MainActivity extends AppCompatActivity {
             if (paused) {
                 // Either updates the fragment if preferences have been externally updated
                 setPreferencesFromResource(R.xml.preferences, getPreferenceScreen().getKey());
-            } else if (getActivity() instanceof MainActivity) {
+            } else if (getActivity() instanceof PaintActivity) {
                 // or in some cases like document size, runs code after some settings are set
-                MainActivity activity = (MainActivity) getActivity();
+                PaintActivity activity = (PaintActivity) getActivity();
                 activity.setCanvasSize(
                         Float.parseFloat(sharedPreferences.getString("documentWidth", "816")),
                         Float.parseFloat(sharedPreferences.getString("documentHeight", "1056"))
@@ -415,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
             for (Button button : buttons) {
                 button.setOnClickListener(event -> {
                     // Hack but we can do this because the activity is always MainActivity
-                    ((MainActivity) requireActivity()).setTool(button.getId());
+                    ((PaintActivity) requireActivity()).setTool(button.getId());
                     // Dismiss the bottom sheet.
                     dismiss();
                 });
@@ -463,8 +462,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.putInt(prefName, picker.getColor());
                         editor.apply();
                         // Then, update MainActivity
-                        if (getActivity() instanceof MainActivity) {
-                            ((MainActivity) getActivity()).updateBottomBarColors(
+                        if (getActivity() instanceof PaintActivity) {
+                            ((PaintActivity) getActivity()).updateBottomBarColors(
                                     PreferenceManager.getDefaultSharedPreferences(requireContext()).getInt("fillColor", 0x10000000),
                                     PreferenceManager.getDefaultSharedPreferences(requireContext()).getInt("strokeColor", 0x10000000)
                             );
