@@ -24,7 +24,7 @@
         android:id="@+id/tv_title"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="78dp"
         android:background="@null"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -43,16 +43,16 @@
         android:id="@+id/iv_comic"
         android:layout_width="350dp"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/image_comics"
-        app:shapeAppearanceOverlay="@style/RoundedImageView"
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
 
     <LinearLayout

@@ -64,7 +64,7 @@ public class product_card extends AppCompatActivity {
         imageView.setShapeAppearanceModel(
                 imageView.getShapeAppearanceModel()
                         .toBuilder()
-                        .setAllCornerSizes(240f) // Размер скругления в пикселях
+                        .setAllCornerSizes(60f) // Размер скругления в пикселях
                         .build()
         );
         findViewById(R.id.menu_edit).setOnClickListener(v -> {

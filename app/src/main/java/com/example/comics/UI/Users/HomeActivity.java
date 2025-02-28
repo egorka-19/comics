@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.comics.R;
 import com.example.comics.bottomnav.chats.ChatsFragment;
-import com.example.comics.bottomnav.like.LikeFragment;
 import com.example.comics.bottomnav.main.MainFragment;
 import com.example.comics.bottomnav.profile.ProfileFragment;
 import com.example.comics.databinding.ActivityHomeBinding;

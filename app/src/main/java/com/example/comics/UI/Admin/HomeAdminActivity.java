@@ -159,7 +159,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         productMap.put("name", Pname);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("PopularProducts").document(productRandomKey).set(productMap)
+        db.collection("PaintCollection").document(productRandomKey).set(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

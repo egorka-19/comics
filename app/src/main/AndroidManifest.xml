@@ -25,9 +25,6 @@
             android:name=".bottomnav.chats.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".testActivity"
-            android:exported="false" />
-        <activity
             android:name=".UI.Users.add_response"
             android:exported="false" />
         <activity
