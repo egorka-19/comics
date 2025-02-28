@@ -15,6 +15,7 @@ import com.example.comics.Model.PopularModel;
 import com.example.comics.Model.ViewAllModel;
 import com.example.comics.UI.Users.HomeActivity;
 import com.example.comics.UI.Users.add_response;
+import com.example.comics.paint.PaintActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 
 public class product_card extends AppCompatActivity {
@@ -68,7 +69,7 @@ public class product_card extends AppCompatActivity {
                         .build()
         );
         findViewById(R.id.menu_edit).setOnClickListener(v -> {
-            Intent intent = new Intent(product_card.this, EditActivity.class);
+            Intent intent = new Intent(product_card.this, PaintActivity.class);
             startActivity(intent);
         });
 
