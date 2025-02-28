@@ -6,9 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.comics.R;
-import com.example.comics.UI.Admin.bottomnav.AddNewProducts.AddNewProductsFragment;
-import com.example.comics.UI.Admin.bottomnav.Metrika.MetrikaFragment;
-import com.example.comics.UI.Admin.bottomnav.Profile.AdminProfileFragment;
 import com.example.comics.databinding.ActivityAdminCategoryBinding;
 
 import java.util.HashMap;
@@ -26,13 +23,11 @@ public class AdminCategoryActivity extends AppCompatActivity {
         Paper.init(this);
         binding = ActivityAdminCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new AddNewProductsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new MetrikaFragment()).commit();
 
         binding.bottomNav.setSelectedItemId(R.id.main);
         Map<Integer, Fragment> fragmentMap = new HashMap<>();
-        fragmentMap.put(R.id.profile, new AdminProfileFragment());
         fragmentMap.put(R.id.category, new MetrikaFragment());
-        fragmentMap.put(R.id.main, new AddNewProductsFragment());
         binding.bottomNav.setOnItemSelectedListener(item -> {
             Fragment fragment = fragmentMap.get(item.getItemId());
 
