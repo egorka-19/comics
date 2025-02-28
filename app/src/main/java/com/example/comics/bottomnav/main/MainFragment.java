@@ -63,25 +63,12 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     FirebaseFirestore db;
     private Uri filePath;
-
     private ImageButton nextButton, allCategoryBtn;
-    RecyclerView popularRec, homeCatRec;
-
-    private CheckBox low12, bow12;
+    RecyclerView popularRec; // Убираем категории, оставляем только популярные
     PopularAdapters popularAdapters;
     List<PopularModel> popularModelList;
-
-    List<HomeCategory> categoryList;
-    HomeAdapter homeAdapter;
-    EditText search_box;
-    private List<ViewAllModel> viewAllModelList;
-    private RecyclerView recyclerViewSearch;
-    private ViewAllAdapters viewAllAdapters;
-
+    EditText search_box; // Убираем поиск
     public String phone;
-
-    private int age;
-    String welcome_text;
 
     @Nullable
     @Override
@@ -89,149 +76,42 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         db = FirebaseFirestore.getInstance();
+
+        // Убираем элементы поиска и категории
         popularRec = view.findViewById(R.id.pop_rec);
-        homeCatRec = view.findViewById(R.id.exp_rec);
         scrollView = view.findViewById(R.id.scroll_view);
         progressBar = view.findViewById(R.id.progressbar);
+
         phone = requireActivity().getIntent().getStringExtra("phone");
         loadUserInfo();
-
 
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.GONE);
 
+        // Настроим только популярные товары
         popularRec.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//        popularRec.setLayoutManager(new GridLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         popularModelList = new ArrayList<>();
         popularAdapters = new PopularAdapters(getActivity(), popularModelList);
         popularRec.setAdapter(popularAdapters);
 
-        db.collection("PopularProducts")
+        // Загружаем данные о популярных товарах
+        db.collection("PaintCollection")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                PopularModel popularModel= document.toObject(PopularModel.class);
-                                popularModelList.add(popularModel);
-                                popularAdapters.notifyDataSetChanged();
-                                progressBar.setVisibility(View.GONE);
-                                scrollView.setVisibility(View.VISIBLE);
-                            }
-                        } else {
-                            System.out.println("Error" + task.getException());
-
-                            Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_LONG).show();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            PopularModel popularModel = document.toObject(PopularModel.class);
+                            popularModelList.add(popularModel);
+                            popularAdapters.notifyDataSetChanged();
+                            progressBar.setVisibility(View.GONE);
+                            scrollView.setVisibility(View.VISIBLE);
                         }
+                    } else {
+                        Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_LONG).show();
                     }
                 });
-
-        homeCatRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-        categoryList = new ArrayList<>();
-        homeAdapter = new HomeAdapter(getActivity(), categoryList);
-        homeCatRec.setAdapter(homeAdapter);
-
-        db.collection("HomeCategory")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                HomeCategory homeCategory= document.toObject(HomeCategory.class);
-                                categoryList.add(homeCategory);
-                                homeAdapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            System.out.println("Error" + task.getException());
-
-                            Toast.makeText(getActivity(), "Error" + task.getException(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
-        ActivityResultLauncher<Intent> pickImageActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode()== Activity.RESULT_OK && result.getData()!=null && result.getData().getData()!=null){
-                            filePath = result.getData().getData();
-
-                            try{
-                                Bitmap bitmap = MediaStore.Images.Media
-                                        .getBitmap(
-                                                requireContext().getContentResolver(),
-                                                filePath
-                                        );
-                                binding.avatarIv.setImageBitmap(bitmap);
-                            }catch(IOException e){
-                                e.printStackTrace();
-                            }
-
-                            uploadImage();
-                        }
-                    }
-                }
-        );
-
-        ////////////Search View
-
-        recyclerViewSearch = view.findViewById(R.id.search_rec);
-        search_box = view.findViewById(R.id.serach_box);
-        viewAllModelList = new ArrayList<>();
-        viewAllAdapters = new ViewAllAdapters(getContext(), viewAllModelList);
-        recyclerViewSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerViewSearch.setAdapter(viewAllAdapters);
-        recyclerViewSearch.setHasFixedSize(true);
-        search_box.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().isEmpty()){
-                    viewAllModelList.clear();
-                    viewAllAdapters.notifyDataSetChanged();
-                }else{
-                    searchProduct(s.toString());
-                }
-
-            }
-        });
 
         return view;
-    }
-
-    private void searchProduct(String type) {
-        if (!type.isEmpty()){
-            db.collection("AllProducts").whereEqualTo("type", type).get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful() && task.getResult() != null){
-                                viewAllModelList.clear();
-                                viewAllAdapters.notifyDataSetChanged();
-                                for (DocumentSnapshot doc : task.getResult().getDocuments()){
-                                    ViewAllModel viewAllModel = doc.toObject(ViewAllModel.class);
-                                    viewAllModelList.add(viewAllModel);
-                                    viewAllAdapters.notifyDataSetChanged();
-                                }
-
-                            }
-                        }
-                    });
-        }
-
-
     }
 
     private void loadUserInfo() {
@@ -241,13 +121,11 @@ public class MainFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             String profileImage = snapshot.child("profileImage").getValue().toString();
-
                             if (!profileImage.isEmpty()) {
-                                // Очищаем кеш Glide перед загрузкой нового изображения
                                 Glide.with(getContext())
                                         .load(profileImage)
                                         .placeholder(R.drawable.loggg)
-                                        .skipMemoryCache(true)  // Пропускаем кеш памяти
+                                        .skipMemoryCache(true)
                                         .into(binding.avatarIv);
                             } else {
                                 Toast.makeText(getContext(), "Загрузите свое фото!", Toast.LENGTH_SHORT).show();
@@ -262,49 +140,27 @@ public class MainFragment extends Fragment {
                 });
     }
 
-
-
-//    private void setPublishRecycler() {
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-//        recyclepublish = binding.recyclepublish;
-//        recyclepublish.setLayoutManager(layoutManager);
-//
-//        PublishAdapter publishAdapter = new PublishAdapter(getContext(), PublishList);
-//        recyclepublish.setAdapter(publishAdapter);
-//    }
-
-
-
-    private void uploadImage(){
+    // Метод для загрузки изображения в Firebase
+    private void uploadImage() {
         if (filePath != null) {
-            // Загрузка изображения в Firebase Storage
             FirebaseStorage.getInstance().getReference().child("Product Images/" + phone)
-                    .putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getContext(), "Фото загружено успешно", Toast.LENGTH_SHORT).show();
-
-                            // Получаем URL загруженного изображения
-                            FirebaseStorage.getInstance().getReference().child("Product Images/" + phone).getDownloadUrl()
-                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            // Обновляем URL изображения в базе данных
-                                            FirebaseDatabase.getInstance().getReference().child("Users").child(phone)
-                                                    .child("profileImage").setValue(uri.toString())
-                                                    .addOnCompleteListener(task -> {
-                                                        if (task.isSuccessful()) {
-                                                            // Очищаем кеш Glide для обновления изображения
-                                                            Glide.with(getContext())
-                                                                    .load(uri)
-                                                                    .placeholder(R.drawable.down_splash_citek)
-                                                                    .skipMemoryCache(true)  // Пропускаем кеш памяти
-                                                                    .into(binding.avatarIv);
-                                                        }
-                                                    });
-                                        }
-                                    });
-                        }
+                    .putFile(filePath)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        Toast.makeText(getContext(), "Фото загружено успешно", Toast.LENGTH_SHORT).show();
+                        FirebaseStorage.getInstance().getReference().child("Product Images/" + phone).getDownloadUrl()
+                                .addOnSuccessListener(uri -> {
+                                    FirebaseDatabase.getInstance().getReference().child("Users").child(phone)
+                                            .child("profileImage").setValue(uri.toString())
+                                            .addOnCompleteListener(task -> {
+                                                if (task.isSuccessful()) {
+                                                    Glide.with(getContext())
+                                                            .load(uri)
+                                                            .placeholder(R.drawable.down_splash_citek)
+                                                            .skipMemoryCache(true)
+                                                            .into(binding.avatarIv);
+                                                }
+                                            });
+                                });
                     });
         }
     }

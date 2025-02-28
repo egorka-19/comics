@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <ImageView
                 android:id="@+id/welcome_text"
                 android:layout_width="150dp"
@@ -38,82 +37,24 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="80dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/account_icon"
-                app:layout_constraintBottom_toTopOf="@+id/serach_box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/welcome_text"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75" />
-
-            <ImageView
-                android:id="@+id/search_iv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
-
-            <EditText
-                android:id="@+id/serach_box"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="100dp"
-                android:backgroundTint="@android:color/transparent"
-                android:fontFamily="@font/nunito"
-                android:gravity="center|left"
-                android:hint="Поиск"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/search_iv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/search_iv"
-                app:layout_constraintTop_toTopOf="@+id/search_iv" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/exp_rec"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_rec" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pop_rec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exp_rec" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pro_rec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pop_rec">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_rec"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_iv" />
+                app:layout_constraintTop_toBottomOf="@+id/avatar_iv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
