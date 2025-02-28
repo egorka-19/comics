@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBar"
+        android:theme="@style/Theme.Swipe_hatoms"
         tools:targetApi="31">
         <activity
             android:name=".EditActivity"
@@ -25,6 +25,9 @@
             android:name=".bottomnav.chats.ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".testActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.Users.add_response"
             android:exported="false" />
         <activity
@@ -34,13 +37,16 @@
             android:name=".product_card"
             android:exported="false" />
         <activity
+            android:name=".UI.Users.settings"
+            android:exported="false" />
+        <activity
             android:name=".UI.Users.favourite"
             android:exported="false" />
         <activity
             android:name=".UI.Users.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.Swipe_hatoms" />
         <activity
             android:name=".UI.Admin.AdminCategoryActivity"
             android:exported="false" />
@@ -59,16 +65,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".paint.PaintActivity"
-            android:configChanges="orientation|screenSize|uiMode"
-            android:exported="true"
-            android:theme="@style/Theme.FreePaint">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
