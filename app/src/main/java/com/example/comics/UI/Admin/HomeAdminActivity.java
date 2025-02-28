@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.comics.R;
+import com.example.comics.paint.PaintActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,11 +33,11 @@ import java.util.HashMap;
 
 public class HomeAdminActivity extends AppCompatActivity {
 
-    private String categoryName, Description, Price, Pname, saveCurrentDate, saveCurrentTime, productRandomKey;
+    private String Pname, saveCurrentDate, saveCurrentTime, productRandomKey;
     private String downloadImageUrl;
     private ImageView productImage;
     FirebaseFirestore db;
-    private EditText productName, productDescription, productPrice;
+    private EditText productName;
     private Button addNewProductButton;
     private static final int GALLERYPICK = 1;
     private Uri ImageUri;
@@ -48,7 +49,6 @@ public class HomeAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_admin);
         db = FirebaseFirestore.getInstance();
-
         init();
 
         productImage.setOnClickListener(new View.OnClickListener() {
@@ -67,46 +67,31 @@ public class HomeAdminActivity extends AppCompatActivity {
     }
 
     private void ValidateProductData() {
-        Description = productDescription.getText().toString();
-        Price = productPrice.getText().toString();
         Pname = productName.getText().toString();
 
-        if(ImageUri == null){
+        if (ImageUri == null) {
             Toast.makeText(this, "Добавьте изображение товара.", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Description)){
-            Toast.makeText(this, "Добавьте описание товара.", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Price)){
-            Toast.makeText(this, "Добавьте стоимость товара.", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Pname)){
+        } else if (TextUtils.isEmpty(Pname)) {
             Toast.makeText(this, "Добавьте название товара.", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             StoreProductInformation();
         }
     }
 
     private void StoreProductInformation() {
-
         loadingBar.setTitle("Загрузка данных");
         loadingBar.setMessage("Пожалуйста, подождите...");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
         Calendar calendar = Calendar.getInstance();
-
         SimpleDateFormat currentDate = new SimpleDateFormat("ddMMyyyy");
         saveCurrentDate = currentDate.format(calendar.getTime());
-
         SimpleDateFormat currentTime = new SimpleDateFormat("HHmmss");
         saveCurrentTime = currentTime.format(calendar.getTime());
-
         productRandomKey = saveCurrentDate + saveCurrentTime;
 
         final StorageReference filePath = ProductImageRef.child(ImageUri.getLastPathSegment() + productRandomKey + ".jpg");
-
         final UploadTask uploadTask = filePath.putFile(ImageUri);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -124,7 +109,7 @@ public class HomeAdminActivity extends AppCompatActivity {
                 uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if(!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
                             throw task.getException();
                         }
                         downloadImageUrl = filePath.getDownloadUrl().toString();
@@ -133,11 +118,9 @@ public class HomeAdminActivity extends AppCompatActivity {
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             downloadImageUrl = task.getResult().toString();
-
                             Toast.makeText(HomeAdminActivity.this, "Фото сохранено", Toast.LENGTH_SHORT).show();
-
                             SaveProductInfoToDatabase();
                         }
                     }
@@ -148,17 +131,12 @@ public class HomeAdminActivity extends AppCompatActivity {
 
     private void SaveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
-
         productMap.put("pid", productRandomKey);
         productMap.put("date", saveCurrentDate);
         productMap.put("time", saveCurrentTime);
-        productMap.put("description", Description);
         productMap.put("img_url", downloadImageUrl);
-        productMap.put("type", categoryName);
-        productMap.put("price", Price);
         productMap.put("name", Pname);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("PaintCollection").document(productRandomKey).set(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -166,8 +144,7 @@ public class HomeAdminActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             loadingBar.dismiss();
                             Toast.makeText(HomeAdminActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
-
-                            Intent loginIntent = new Intent(HomeAdminActivity.this, AdminCategoryActivity.class);
+                            Intent loginIntent = new Intent(HomeAdminActivity.this, PaintActivity.class);
                             startActivity(loginIntent);
                         } else {
                             String message = task.getException().toString();
@@ -182,28 +159,23 @@ public class HomeAdminActivity extends AppCompatActivity {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,GALLERYPICK);
+        startActivityForResult(galleryIntent, GALLERYPICK);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == GALLERYPICK && resultCode == RESULT_OK && data != null){
+        if (requestCode == GALLERYPICK && resultCode == RESULT_OK && data != null) {
             ImageUri = data.getData();
             productImage.setImageURI(ImageUri);
         }
     }
 
     private void init() {
-        categoryName = getIntent().getExtras().get("type").toString();
         productImage = findViewById(R.id.select_product_image);
         productName = findViewById(R.id.product_name);
-        productDescription = findViewById(R.id.description_name);
-        productPrice = findViewById(R.id.product_price);
         addNewProductButton = findViewById(R.id.btn_add_new_product);
         ProductImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         loadingBar = new ProgressDialog(this);
-
     }
 }

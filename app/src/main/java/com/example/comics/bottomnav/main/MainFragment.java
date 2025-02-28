@@ -35,9 +35,12 @@ import com.example.comics.Model.HomeCategory;
 import com.example.comics.Model.PopularModel;
 import com.example.comics.Model.ViewAllModel;
 import com.example.comics.R;
+import com.example.comics.UI.Admin.HomeAdminActivity;
 import com.example.comics.adapters.HomeAdapter;
 import com.example.comics.adapters.PopularAdapters;
 import com.example.comics.adapters.ViewAllAdapters;
+import com.example.comics.bottomnav.chats.ChatActivity;
+import com.example.comics.bottomnav.chats.ChatsFragment;
 import com.example.comics.databinding.FragmentMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,6 +77,7 @@ public class MainFragment extends Fragment {
     List<HomeCategory> categoryList;
     HomeAdapter homeAdapter;
     EditText search_box;
+    ImageButton makeButton;
     private List<ViewAllModel> viewAllModelList;
     private RecyclerView recyclerViewSearch;
     private ViewAllAdapters viewAllAdapters;
@@ -93,6 +97,7 @@ public class MainFragment extends Fragment {
         homeCatRec = view.findViewById(R.id.exp_rec);
         scrollView = view.findViewById(R.id.scroll_view);
         progressBar = view.findViewById(R.id.progressbar);
+        makeButton = view.findViewById(R.id.make_but);
         phone = requireActivity().getIntent().getStringExtra("phone");
         loadUserInfo();
 
@@ -205,6 +210,15 @@ public class MainFragment extends Fragment {
                     searchProduct(s.toString());
                 }
 
+            }
+        });
+
+        binding.makeBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeIntent = new Intent(MainFragment.this.getActivity(), HomeAdminActivity.class);
+                homeIntent.putExtra("type", "some_value");
+                startActivity(homeIntent);
             }
         });
 

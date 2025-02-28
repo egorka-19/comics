@@ -55,9 +55,6 @@ public class PaintActivity extends AppCompatActivity {
     private final ToolsBottomSheet toolsBottomSheet = new ToolsBottomSheet();
     private ActivityPaintBinding binding;
 
-    /**
-     * Handles file picker actions -- onActivityResult is called after a file path is chosen (see MainActivity.onOptionsItemSelected)
-     */
     private final ActivityResultLauncher<Intent> activityResultLauncherSave = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             (result) -> {
@@ -134,18 +131,12 @@ public class PaintActivity extends AppCompatActivity {
             editor.apply();
             PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
         }
-
-        // Android things (including setting/adjusting layout)
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityPaintBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.addButton.setOnClickListener(view -> addNewCanvas());
-        // Sets default settings values
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-        // Styles the info bar
-        // Courtesy of https://stackoverflow.com/questions/18781902/rounded-corner-for-textview-in-android/61768682#61768682
         float radius = getResources().getDimension(com.google.android.material.R.dimen.cardview_default_radius);
         ShapeAppearanceModel shapeAppearanceModel = new ShapeAppearanceModel()
                 .toBuilder()
