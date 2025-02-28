@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
                 // Запускаем сетевой запрос в фоновом потоке
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
-                    String response = chatGPT("Ты консультант в гипермаркете. Ответь на вопрос простым языком: " + prompt +
+                    String response = chatGPT("Ты очень умный человек с большим жизненным опытом. " + prompt +
                             "напиши небольшой ответ").toLowerCase();
 
                     // После получения ответа выполняем действия в главном потоке
@@ -74,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
 
     public static String chatGPT(String prompt) {
         String url = "https://api.naga.ac/v1/chat/completions";
-        String apiKey = "ng-AUBPLAbnJiRBzvplwVzA8OiKgwGw8";
+        String apiKey = "ng-O5o7GnOt9AqR1rjknX08P3m6blgXs";
         String model = "gpt-3.5-turbo";
 
         try {
