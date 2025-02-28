@@ -20,11 +20,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 public class product_card extends AppCompatActivity {
     ImageView detailedImg;
-
     TextView price, description, name;
-
     ImageButton back;
-
     ViewAllModel viewAllModel = null;
     PopularModel popularModel = null;
 
@@ -33,45 +30,42 @@ public class product_card extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_product_card);
+
         back = findViewById(R.id.btn_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                new Intent(product_card.this, HomeActivity.class);
+                startActivity(new Intent(product_card.this, HomeActivity.class));  // Запуск активности
             }
         });
 
         final Object object = getIntent().getSerializableExtra("detail");
-        if (object instanceof ViewAllModel){
+        if (object instanceof ViewAllModel) {
             viewAllModel = (ViewAllModel) object;
         }
-        if (object instanceof PopularModel){
+        if (object instanceof PopularModel) {
             popularModel = (PopularModel) object;
         }
 
         detailedImg = findViewById(R.id.iv_comic);
         name = findViewById(R.id.tv_title);
 
-        if (viewAllModel != null){
-            Glide.with(getApplicationContext()).load(viewAllModel.getImg_url()).into(detailedImg);
+        // Использование контекста активности
+        if (viewAllModel != null) {
+            Glide.with(product_card.this).load(viewAllModel.getImg_url()).into(detailedImg);
             name.setText(viewAllModel.getName());
         }
-        if (popularModel != null){
-            Glide.with(getApplicationContext()).load(popularModel.getImg_url()).into(detailedImg);
+        if (popularModel != null) {
+            Glide.with(product_card.this).load(popularModel.getImg_url()).into(detailedImg);
             name.setText(popularModel.getName());
         }
+
         ShapeableImageView imageView = findViewById(R.id.iv_comic);
-        imageView.setShapeAppearanceModel(
-                imageView.getShapeAppearanceModel()
-                        .toBuilder()
-                        .setAllCornerSizes(60f) // Размер скругления в пикселях
-                        .build()
-        );
+        imageView.setShapeAppearanceModel(imageView.getShapeAppearanceModel().toBuilder().setAllCornerSizes(60f).build());
+
         findViewById(R.id.menu_edit).setOnClickListener(v -> {
             Intent intent = new Intent(product_card.this, PaintActivity.class);
             startActivity(intent);
         });
-
     }
 }
