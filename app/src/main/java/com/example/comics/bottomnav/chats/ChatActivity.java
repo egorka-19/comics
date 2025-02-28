@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
                 // Запускаем сетевой запрос в фоновом потоке
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
-                    String response = chatGPT("Ты консультант в гипермаркете. Ответь на вопрос простым языком: " + prompt +
+                    String response = chatGPT("Ты очень умный человек с большим жизненным опытом. " + prompt +
                             "напиши небольшой ответ").toLowerCase();
 
                     // После получения ответа выполняем действия в главном потоке
