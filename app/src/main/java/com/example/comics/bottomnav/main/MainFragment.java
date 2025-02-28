@@ -35,6 +35,7 @@ import com.example.comics.Model.HomeCategory;
 import com.example.comics.Model.PopularModel;
 import com.example.comics.Model.ViewAllModel;
 import com.example.comics.R;
+import com.example.comics.UI.Admin.HomeAdminActivity;
 import com.example.comics.adapters.HomeAdapter;
 import com.example.comics.adapters.PopularAdapters;
 import com.example.comics.adapters.ViewAllAdapters;
@@ -63,7 +64,7 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     FirebaseFirestore db;
     private Uri filePath;
-    private ImageButton nextButton, allCategoryBtn;
+    private ImageButton nextButton, allCategoryBtn, makeBut;
     RecyclerView popularRec; // Убираем категории, оставляем только популярные
     PopularAdapters popularAdapters;
     List<PopularModel> popularModelList;
@@ -77,11 +78,18 @@ public class MainFragment extends Fragment {
         View view = binding.getRoot();
         db = FirebaseFirestore.getInstance();
 
+        // Инициализация кнопки make_but
+        makeBut = view.findViewById(R.id.make_but);
+        makeBut.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), HomeAdminActivity.class);
+            intent.putExtra("type", "some_value");
+            startActivity(intent);
+        });
+
         // Убираем элементы поиска и категории
         popularRec = view.findViewById(R.id.pop_rec);
         scrollView = view.findViewById(R.id.scroll_view);
         progressBar = view.findViewById(R.id.progressbar);
-
         phone = requireActivity().getIntent().getStringExtra("phone");
         loadUserInfo();
 

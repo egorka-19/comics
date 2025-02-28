@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.comics.R;
+import com.example.comics.paint.PaintActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -67,18 +68,10 @@ public class HomeAdminActivity extends AppCompatActivity {
     }
 
     private void ValidateProductData() {
-        Description = productDescription.getText().toString();
-        Price = productPrice.getText().toString();
         Pname = productName.getText().toString();
 
         if(ImageUri == null){
             Toast.makeText(this, "Добавьте изображение товара.", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Description)){
-            Toast.makeText(this, "Добавьте описание товара.", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Price)){
-            Toast.makeText(this, "Добавьте стоимость товара.", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(Pname)){
             Toast.makeText(this, "Добавьте название товара.", Toast.LENGTH_SHORT).show();
@@ -167,7 +160,7 @@ public class HomeAdminActivity extends AppCompatActivity {
                             loadingBar.dismiss();
                             Toast.makeText(HomeAdminActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
 
-                            Intent loginIntent = new Intent(HomeAdminActivity.this, AdminCategoryActivity.class);
+                            Intent loginIntent = new Intent(HomeAdminActivity.this, PaintActivity.class);
                             startActivity(loginIntent);
                         } else {
                             String message = task.getException().toString();
@@ -199,8 +192,6 @@ public class HomeAdminActivity extends AppCompatActivity {
         categoryName = getIntent().getExtras().get("type").toString();
         productImage = findViewById(R.id.select_product_image);
         productName = findViewById(R.id.product_name);
-        productDescription = findViewById(R.id.description_name);
-        productPrice = findViewById(R.id.product_price);
         addNewProductButton = findViewById(R.id.btn_add_new_product);
         ProductImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         loadingBar = new ProgressDialog(this);

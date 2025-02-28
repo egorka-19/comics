@@ -140,7 +140,6 @@ public class PaintActivity extends AppCompatActivity {
 
         binding = ActivityPaintBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.addButton.setOnClickListener(view -> addNewCanvas());
         // Sets default settings values
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 

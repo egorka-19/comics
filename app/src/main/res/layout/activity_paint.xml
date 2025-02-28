@@ -54,12 +54,6 @@
         android:src="@drawable/baseline_brush_24"
         app:layout_anchor="@id/bottomAppBar" />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Add Canvas" />
     <LinearLayout
         android:id="@+id/canvasContainer"
         android:layout_width="match_parent"

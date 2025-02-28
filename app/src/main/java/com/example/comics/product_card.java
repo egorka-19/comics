@@ -37,8 +37,16 @@ public class product_card extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                new Intent(product_card.this, HomeActivity.class);
+                Intent intent = new Intent(product_card.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.menu_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(product_card.this, sawimage.class);
+                startActivity(intent);
             }
         });
 
@@ -72,6 +80,8 @@ public class product_card extends AppCompatActivity {
             Intent intent = new Intent(product_card.this, PaintActivity.class);
             startActivity(intent);
         });
+
+
 
     }
 }
